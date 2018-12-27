@@ -8,6 +8,7 @@ import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.Optional;
 
@@ -21,9 +22,17 @@ public class AuthFilter extends GenericFilterBean {
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        Authentication auth = personAuthentication.authenticate()
+
         SecurityContextHolder.getContext().setAuthentication();
         Optional<?> asd;
         filterChain.doFilter(servletRequest, servletResponse);
+    }
+
+    public Optional<Authentication> getAuthentication(HttpServletRequest request) {
+        return Optional
+                .ofNullable(request.getHeader("token"))
+                .flatMap(TokenFactory::decoderToken)
+                .flatMap(personService::findById)
+                .map(PersonAuthentication::new);
     }
 }

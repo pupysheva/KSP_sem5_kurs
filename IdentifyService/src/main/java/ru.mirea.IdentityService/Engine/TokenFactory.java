@@ -4,6 +4,7 @@ import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
+import java.util.Optional;
 
 /**
  * Класс представляет из себя описание, что такое токен.
@@ -19,6 +20,14 @@ public class TokenFactory {
         String header64 = new String(Base64.getEncoder().encode(headerDefault.generateJSON().getBytes()));
         String payload64 = new String(Base64.getEncoder().encode(payload.generateJSON().getBytes()));
         return header64 + "." + payload64 + "." + getSignature(header64, payload64);
+    }
+
+    public static PayloadToken decoderTokenWithoutException(String token) {
+        try {
+            return decoderToken(token);
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     /**
