@@ -1,10 +1,9 @@
-package ru.mirea.Identity;
+package ru.mirea.IdentityService.Engine;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
-import java.rmi.AccessException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;

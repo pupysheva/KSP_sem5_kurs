@@ -1,4 +1,4 @@
-package ru.mirea.Identity;
+package ru.mirea.IdentityService.Engine;
 
 import org.springframework.security.core.GrantedAuthority;
 

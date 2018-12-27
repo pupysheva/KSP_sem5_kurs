@@ -1,4 +1,4 @@
-package ru.mirea.Identity;
+package ru.mirea.IdentityService.Engine;
 
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
@@ -23,7 +23,7 @@ public class PersonAuthentication implements Authentication, AuthenticationManag
 
     @Override
     public Object getCredentials() {
-        return user.getPassword();
+        return user.getPassword() != null ? user.getPassword() : user.getToken();
     }
 
     @Override
@@ -53,6 +53,15 @@ public class PersonAuthentication implements Authentication, AuthenticationManag
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-        authentication.getCredentials() == BD
+        if(((User)authentication.getPrincipal()).getLogin() == null) {
+            try {
+                TokenFactory.decoderToken((String) authentication.getPrincipal());
+                authentication.setAuthenticated(true);
+            } catch (Exception e) {
+                authentication.setAuthenticated(false);
+            }
+            return authentication;
+        }
+        throw new UnsupportedOperationException("login and password");
     }
 }

@@ -1,4 +1,4 @@
-package ru.mirea.Identity;
+package ru.mirea.IdentityService.Engine;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;

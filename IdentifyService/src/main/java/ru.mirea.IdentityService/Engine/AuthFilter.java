@@ -1,4 +1,4 @@
-package ru.mirea.Identity;
+package ru.mirea.IdentityService.Engine;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -21,8 +21,8 @@ public class AuthFilter extends GenericFilterBean {
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        Authentication auth = personAuthentication.getDetails();
-        SecurityContextHolder.getContext().setAuthentication(new org.springframework.security.core.Authentication());
+        Authentication auth = personAuthentication.authenticate()
+        SecurityContextHolder.getContext().setAuthentication();
         Optional<?> asd;
         filterChain.doFilter(servletRequest, servletResponse);
     }

@@ -1,6 +1,8 @@
-package ru.mirea.Identity;
+package Identity;
 
 import org.junit.Test;
+import ru.mirea.IdentityService.Engine.PayloadToken;
+import ru.mirea.IdentityService.Engine.Role;
 
 import java.util.Collections;
 

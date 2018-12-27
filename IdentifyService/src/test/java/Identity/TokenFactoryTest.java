@@ -1,11 +1,13 @@
-package ru.mirea.Identity;
+package Identity;
 
 import org.junit.Test;
+import ru.mirea.IdentityService.Engine.PayloadToken;
+import ru.mirea.IdentityService.Engine.Role;
+import ru.mirea.IdentityService.Engine.TokenFactory;
 
 import java.util.Collections;
 
 import static org.junit.Assert.*;
-import static ru.mirea.Identity.Role.ADMIN;
 
 public class TokenFactoryTest {
 
