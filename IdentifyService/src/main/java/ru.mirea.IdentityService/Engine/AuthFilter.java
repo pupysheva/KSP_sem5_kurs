@@ -31,7 +31,7 @@ public class AuthFilter extends GenericFilterBean {
     public Optional<Authentication> getAuthentication(HttpServletRequest request) {
         return Optional
                 .ofNullable(request.getHeader("token"))
-                .flatMap(TokenFactory::decoderToken)
+                .flatMap(TokenFactory::decoderTokenOptional)
                 .flatMap(personService::findById)
                 .map(PersonAuthentication::new);
     }

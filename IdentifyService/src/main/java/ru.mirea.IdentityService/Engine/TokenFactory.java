@@ -22,11 +22,11 @@ public class TokenFactory {
         return header64 + "." + payload64 + "." + getSignature(header64, payload64);
     }
 
-    public static PayloadToken decoderTokenWithoutException(String token) {
+    public static Optional<PayloadToken> decoderTokenOptional(String token) {
         try {
-            return decoderToken(token);
+            return Optional.of(decoderToken(token));
         } catch (Exception e) {
-            return null;
+            return Optional.empty();
         }
     }
 
