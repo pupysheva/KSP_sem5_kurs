@@ -1,10 +1,9 @@
-package ru.mirea.Identity;
+package ru.mirea.Tokens;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
-import java.util.Optional;
 
 /**
  * Класс представляет из себя описание, что такое токен.
@@ -16,38 +15,40 @@ public class TokenFactory {
      */
     public final static String secretKey = "4QdR!t*NBEXDzWf_M=G%f$eA4ku?ZTdVDNarxH7z4Q=mvg8ZXL";
 
+    /**
+     * Генерирует токен на основе его полезной нагрузки.
+     * @param payload Полезная нагрузка токена.
+     * @return Токен пользователя.
+     */
     public static String generateToken(PayloadToken payload) {
         String header64 = new String(Base64.getEncoder().encode(headerDefault.generateJSON().getBytes()));
         String payload64 = new String(Base64.getEncoder().encode(payload.generateJSON().getBytes()));
         return header64 + "." + payload64 + "." + getSignature(header64, payload64);
     }
 
-    public static Optional<PayloadToken> decoderTokenOptional(String token) {
-        try {
-            return Optional.of(decoderToken(token));
-        } catch (Exception e) {
-            return Optional.empty();
-        }
-    }
-
     /**
      * Получает информацию о пользователе по его токену.
      * @param token Токен пользователя.
-     * @return Данные пользователя
-     * @throws Exception Подпись не верна или неизвестный header.
+     * @return Данные пользователя. Null, если ошибка.
      */
-    public static PayloadToken decoderToken(String token) throws Exception {
+    public static PayloadToken decoderToken(String token) {
         String[] tokenArray = token.split("\\.");
         String headerSTR = new String(Base64.getDecoder().decode(tokenArray[0]));
         String payloadSTR = new String(Base64.getDecoder().decode(tokenArray[1]));
         String signature = tokenArray[2];
-        HeaderToken header = HeaderToken.decoderJson(headerSTR);
-        PayloadToken payload = PayloadToken.decoderJson(payloadSTR);
+        HeaderToken header;
+        PayloadToken payload;
+        try {
+            header = HeaderToken.decoderJson(headerSTR);
+            payload = PayloadToken.decoderJson(payloadSTR);
+        } catch (Exception e) {
+            return null;
+        }
         if(!headerDefault.equals(header))
-            throw new Exception();
+            return null;
         if(!getSignature(tokenArray[0], tokenArray[1]).equals(signature))
             // Подпись не совпала.
-            throw new Exception();
+            return null;
         return payload;
     }
 

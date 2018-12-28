@@ -1,4 +1,4 @@
-package ru.mirea.Identity;
+package ru.mirea.Tokens;
 
 import java.util.List;
 

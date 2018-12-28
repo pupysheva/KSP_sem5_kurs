@@ -1,10 +1,10 @@
-package ru.mirea.Identity;
+package ru.mirea.Tokens;
 
 import org.junit.Test;
-import ru.mirea.IdentityService.Engine.PayloadToken;
-import ru.mirea.IdentityService.Engine.Role;
 
 import java.util.Collections;
+
+import static org.junit.Assert.assertEquals;
 
 public class PayloadTokenFactoryTest {
     @Test
