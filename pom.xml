@@ -13,10 +13,6 @@
         <module>ItemService</module>
         <module>CartService</module>
         <module>BalanceService</module>
-        <module>Identity</module>
-        <module>IdentifyService</module>
-        <module>Gateway</module>
-        <module>Auth</module>
     </modules>
 
 
